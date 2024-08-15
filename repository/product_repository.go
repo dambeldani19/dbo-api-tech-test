@@ -32,11 +32,11 @@ func (r *productRepository) Insert(product *entity.Product) error {
 }
 
 func (r *productRepository) GetDetail(id int) (*entity.Product, error) {
-	var cust *entity.Product
+	var prod *entity.Product
 
-	err := r.db.Where("deleted_at IS NULL").First(&cust, "id = ?", id).Error
+	err := r.db.Where("deleted_at IS NULL").First(&prod, "id = ?", id).Error
 
-	return cust, err
+	return prod, err
 }
 
 func (r *productRepository) GetList(param *dto.ParamRequest) ([]entity.Product, dto.ResponseParam, error) {
