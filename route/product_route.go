@@ -3,6 +3,7 @@ package route
 import (
 	"dbo-api/config"
 	"dbo-api/handler"
+	"dbo-api/middleware"
 	"dbo-api/repository"
 	"dbo-api/service"
 
@@ -15,6 +16,7 @@ func ProductRoute(api *gin.RouterGroup) {
 	handler := handler.NewProductHandler(productSrv)
 
 	r := api.Group("/product")
+	r.Use(middleware.JWTMiddleware(config.DB))
 
 	//customer api
 	r.POST("/", handler.AddProduct)

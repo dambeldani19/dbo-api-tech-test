@@ -3,6 +3,7 @@ package route
 import (
 	"dbo-api/config"
 	"dbo-api/handler"
+	"dbo-api/middleware"
 	"dbo-api/repository"
 	"dbo-api/service"
 
@@ -16,6 +17,7 @@ func CustomerRoute(api *gin.RouterGroup) {
 	handler := handler.NewCustomerHandler(custService)
 
 	r := api.Group("/customer")
+	r.Use(middleware.JWTMiddleware(config.DB))
 
 	//customer api
 	r.GET("/", handler.GetList)
