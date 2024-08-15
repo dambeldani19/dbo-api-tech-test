@@ -18,7 +18,7 @@ func ProductRoute(api *gin.RouterGroup) {
 	r := api.Group("/product")
 	r.Use(middleware.JWTMiddleware(config.DB))
 
-	//customer api
+	//product api
 	r.POST("/", handler.AddProduct)
 	r.GET("/", handler.GetListProduct)
 	r.GET("/:id", handler.GetDetail)

@@ -49,6 +49,11 @@ func (h *orderHandler) GetListOrder(c *gin.Context) {
 
 	page, _ := strconv.Atoi(c.Query("page"))
 	perpage, _ := strconv.Atoi(c.Query("per_page"))
+
+	if perpage <= 0 {
+		perpage = 10
+	}
+
 	params := dto.ParamRequest{
 		Search: c.Query("search"),
 		UserID: custID.(int),
