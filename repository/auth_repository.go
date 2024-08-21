@@ -33,7 +33,7 @@ func (r *authRepository) Register(user *entity.User) (int, error) {
 func (r *authRepository) EmailExist(email string) bool {
 	var user entity.User
 
-	err := r.db.First(user, "email = ?", email).Error
+	err := r.db.First(&user, "email = ?", email).Error
 
 	return err == nil
 }
