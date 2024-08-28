@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dbo-api
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      - PORT=8080
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_URL=db:3306
+      - DB_DATABASE=dbo_api
+    ports:
+      - "8080:8080"
+    networks:
+      - dbo-network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbo_api
+    ports:
+      - "3307:3306"  
+    expose:
+      - "3306"
+    networks:
+      - dbo-network
+    volumes:
+      - data-db:/var/lib/mysql
+      - ./dump-dbo_api-202408142215.sql:/docker-entrypoint-initdb.d/dump-dbo_api-202408142215.sql
+
+volumes:
+  data-db:
+
+networks:
+  dbo-network:
+    driver: bridge

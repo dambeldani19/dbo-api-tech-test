@@ -38,6 +38,6 @@ COPY --from=builder /etc/passwd /etc/passwd
 
 # Copy the executable.
 COPY --from=builder /go/bin/dbo-api /go/bin/dbo-api
-COPY --from=builder /go/src/dbo-api/.env /go/bin/.env
+COPY --from=builder /go/src/dbo-api/.env .env
 
 ENTRYPOINT ["/go/bin/dbo-api", "-conf", "/go/bin/.env"]
